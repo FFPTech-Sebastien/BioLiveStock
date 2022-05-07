@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import MainStack from './App/Main/MainStack';
-import DrawerTabs from './App/DrawerTabs';
+import { DrawerTabs } from './App';
 
 interface RoutesProps {}
 

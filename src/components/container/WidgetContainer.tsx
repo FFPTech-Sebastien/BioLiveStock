@@ -1,6 +1,6 @@
+import { theme } from '@constants';
 import React from 'react';
 import { TouchableOpacity, ViewStyle } from 'react-native';
-import { theme } from '../../constants';
 
 interface WidgetContainerProps {
     width?: string;

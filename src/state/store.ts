@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import { cowReducer, testReducer, userReducer } from './reducers';
+import { cowReducer, userReducer } from './reducers';
 
 const store = configureStore({
     reducer: {

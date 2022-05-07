@@ -1,14 +1,10 @@
+import { CowHealthWidget, CowNumberWidget, WidgetContainer } from '@components';
+import { fetchCows, RootState, useAppDispatch } from '@state';
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import {
-    CowHealthWidget,
-    CowNumberWidget,
-    WidgetContainer,
-} from '../../../../components';
-import { HomeStackNavProps } from '../../../../navigation/App/Main/MainParamsList';
-import { fetchCows, RootState, useAppDispatch } from '../../../../state';
+import { HomeStackNavProps } from '@navigation';
 
 type HomeProps = HomeStackNavProps<'Home'>;
 

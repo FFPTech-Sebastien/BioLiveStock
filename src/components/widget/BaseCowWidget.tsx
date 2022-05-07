@@ -1,8 +1,8 @@
+import { RootState } from '@state';
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../state';
-import { WidgetContainer } from '../container';
+import { WidgetContainer } from '@components';
 
 interface BaseCowWidgetProps {
     onPress?: () => void;

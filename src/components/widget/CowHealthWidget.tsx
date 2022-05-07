@@ -1,9 +1,8 @@
+import { RootState } from '@state';
 import React from 'react';
-import { Text } from 'react-native';
-import BaseCowWidget from './BaseCowWidget';
 import { BarChart } from 'react-native-chart-kit';
-import { RootState } from '../../state';
 import { useSelector } from 'react-redux';
+import { BaseCowWidget } from '@components';
 
 interface CowHealthWidgetProps {}
 

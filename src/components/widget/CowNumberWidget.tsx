@@ -2,11 +2,11 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { MainParamsList } from '../../navigation/App/Main/MainParamsList';
-import { RootState } from '../../state';
-import BaseCowWidget from './BaseCowWidget';
+import { BaseCowWidget } from '@components';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { theme } from '../../constants';
+import { MainParamsList } from '@navigation';
+import { RootState } from '@state';
+import { theme } from '@constants';
 
 interface CowNumberWidgetProps {
     navigation: StackNavigationProp<MainParamsList, 'Home', undefined>;

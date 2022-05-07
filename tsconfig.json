@@ -3,6 +3,19 @@
     "compilerOptions": {
         "jsx": "react",
         "strict": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "baseUrl": "./",
+        "paths": {
+            "~": ["./src"],
+            "@screens": ["./src/screens"],
+            "@components": ["src/components"],
+            "@constants": ["./src/constants"],
+            "@utils": ["./src/utils"],
+            "@state": ["./src/state"],
+            "@navigation": ["./src/navigation"],
+            "@hooks": ["./src/hooks"],
+            "@config": ["./src/config"],
+            "@contexts": ["./src/contexts"],
+        }
     }
 }
