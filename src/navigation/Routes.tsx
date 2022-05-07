@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { AuthenticationStack } from './Authentication';
+import MainStack from './App/Main/MainStack';
+import DrawerTabs from './App/DrawerTabs';
 
 interface RoutesProps {}
 
 const Routes: React.FC<RoutesProps> = () => {
     return (
         <NavigationContainer>
-            <AuthenticationStack />
+            {/* <MainStack /> */}
+            <DrawerTabs />
         </NavigationContainer>
     );
 };

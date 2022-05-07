@@ -11,12 +11,8 @@ const AuthenticationStack: React.FC<AuthenticationStackProps> = () => {
     return (
         <Stack.Navigator
             screenOptions={{
-                headerShown: false,
-                // headerStyle: {
-                //     backgroundColor: colors.primary,
-                // },
-                headerTitleStyle: {
-                    color: '#fff',
+                headerStyle: {
+                    backgroundColor: 'green',
                 },
                 headerTitleAlign: 'left',
             }}
