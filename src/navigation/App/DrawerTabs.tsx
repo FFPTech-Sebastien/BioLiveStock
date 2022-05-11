@@ -7,6 +7,7 @@ import MainStack from './Main/MainStack';
 import { theme } from '../../constants';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const { StatusBarManager } = NativeModules;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
@@ -15,6 +16,8 @@ export const STATUSBAR_HEIGHT_TOTAL = STATUSBAR_HEIGHT + 50;
 interface DrawerTabsProps {}
 
 const Drawer = createDrawerNavigator<DrawerParamsList>();
+
+const sideMenuDisabledScreens = ['ListCow', 'SearchCow', 'DetailCow'];
 
 const DrawerTabs: React.FC<DrawerTabsProps> = () => {
     return (
@@ -25,6 +28,7 @@ const DrawerTabs: React.FC<DrawerTabsProps> = () => {
             // }}
             screenOptions={({ navigation, route }) => {
                 return {
+                    // headerShown: false,
                     headerStyle: {
                         backgroundColor: theme.colors.primary,
                     },
@@ -42,9 +46,7 @@ const DrawerTabs: React.FC<DrawerTabsProps> = () => {
                             }}
                         >
                             <TouchableOpacity
-                                onPress={() => {
-                                    navigation.navigate('SearchCow');
-                                }}
+                                onPress={() => navigation.navigate('SearchCow')}
                             >
                                 <AntDesign
                                     name="search1"
@@ -61,65 +63,53 @@ const DrawerTabs: React.FC<DrawerTabsProps> = () => {
                             </TouchableOpacity>
                         </View>
                     ),
-                    // drawerActiveTintColor: colors.primary,
-                    // headerTitle: () => <HalisiImage width={40} height={40} />,
-                    // headerLeft: () => (
-                    //     <TouchableOpacity
-                    //         style={{ marginLeft: 20 }}
-                    //         onPress={() => {
-                    //             navigation.openDrawer();
-                    //         }}
-                    //     >
-                    //         <Entypo name="menu" size={30} color="#fff" />
-                    //     </TouchableOpacity>
-                    // ),
                 };
             }}
         >
-            <Drawer.Screen
-                name="MainStack"
-                component={MainStack}
-                options={({ navigation, route }) => {
-                    return {
+            <Drawer.Group
+                screenOptions={({ navigation, route }) => {
+                    const routeName =
+                        getFocusedRouteNameFromRoute(route) ?? 'Home';
+                    if (sideMenuDisabledScreens.includes(routeName)) {
+                        return {
+                            swipeEnabled: false,
+                            headerLeft: () => (
+                                <TouchableOpacity
+                                    style={{
+                                        marginLeft: 10,
+                                    }}
+                                    onPress={() => navigation.goBack()}
+                                >
+                                    <Ionicons
+                                        name="arrow-back"
+                                        size={24}
+                                        color="white"
+                                    />
+                                </TouchableOpacity>
+                            ),
+                        };
+                    }
+                    return {};
+                }}
+            >
+                <Drawer.Screen
+                    name="MainStack"
+                    component={MainStack}
+                    options={{
                         drawerLabel: 'Home',
                         drawerIcon: ({ color, size }) => (
                             <Entypo name="home" size={size} color={color} />
                         ),
-                        // headerRight: () => (
-                        //     <View
-                        //         style={{
-                        //             width: '30%',
-                        //             flexDirection: 'row',
-                        //             alignItems: 'center',
-                        //             justifyContent: 'space-between',
-                        //             marginRight: 20,
-                        //         }}
-                        //     >
-                        //         <TouchableOpacity
-                        //             onPress={() => {
-                        //                 navigation.navigate('SearchCow');
-                        //             }}
-                        //         >
-                        //             <AntDesign
-                        //                 name="search1"
-                        //                 size={20}
-                        //                 color="white"
-                        //             />
-                        //         </TouchableOpacity>
-                        //         <TouchableOpacity>
-                        //             <Ionicons
-                        //                 name="ios-add-sharp"
-                        //                 size={30}
-                        //                 color="white"
-                        //             />
-                        //         </TouchableOpacity>
-                        //     </View>
-                        // ),
-                    };
-                }}
-            />
+                    }}
+                />
+            </Drawer.Group>
         </Drawer.Navigator>
     );
 };
 
 export default DrawerTabs;
+
+// drawerLabel: 'Home',
+// drawerIcon: ({ color, size }) => (
+//     <Entypo name="home" size={size} color={color} />
+// ),

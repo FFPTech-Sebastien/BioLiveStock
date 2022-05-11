@@ -25,6 +25,7 @@
         "SharedArrayBuffer": "readonly"
     },
     "rules": {
+        "@typescript-eslint/no-empty-interface": "off",
         "linebreak-style": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",

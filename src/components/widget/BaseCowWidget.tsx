@@ -1,22 +1,30 @@
 import { RootState } from '@state';
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { WidgetContainer } from '@components';
+import WidgetContainer, {
+    WidgetContainerProps,
+} from '../container/WidgetContainer';
 
-interface BaseCowWidgetProps {
-    onPress?: () => void;
+interface BaseCowWidgetProps extends WidgetContainerProps {
+    test?: string;
 }
 
-const BaseCowWidget: React.FC<BaseCowWidgetProps> = ({ onPress, children }) => {
+const BaseCowWidget: React.FC<BaseCowWidgetProps> = ({
+    width = '48%',
+    test,
+    children,
+    ...props
+}) => {
     const { status } = useSelector((state: RootState) => state.cow);
     let content = children;
     if (status === 'idle' || status === 'loading') {
         content = <ActivityIndicator size="small" />;
     }
+    console.log({ ...props });
 
     return (
-        <WidgetContainer width="48%" onPress={onPress}>
+        <WidgetContainer width={width} {...props}>
             {content}
         </WidgetContainer>
     );

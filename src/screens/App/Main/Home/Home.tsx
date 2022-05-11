@@ -1,37 +1,62 @@
-import { CowHealthWidget, CowNumberWidget, WidgetContainer } from '@components';
-import { fetchCows, RootState, useAppDispatch } from '@state';
 import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
+import {
+    CowHealthWidget,
+    CowNumberWidget,
+    Timer,
+    WidgetContainer,
+} from '@components';
+import { fetchCows, useAppDispatch } from '@state';
 import { HomeStackNavProps } from '@navigation';
+import { View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type HomeProps = HomeStackNavProps<'Home'>;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
-    const { cows, status } = useSelector((state: RootState) => state.cow);
 
     useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchCows());
-        }
-    }, [status, dispatch]);
+        dispatch(fetchCows());
+    }, [dispatch]);
 
     return (
-        <ScrollView contentContainerStyle={{ flex: 1, padding: 20 }}>
+        <ScrollView
+            contentContainerStyle={{
+                flex: 1,
+                padding: 20,
+            }}
+        >
             <View style={{ flex: 1 }}>
                 <WidgetContainer>
-                    <Text>Time</Text>
+                    <View
+                        style={{
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Timer />
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    ></View>
                 </WidgetContainer>
                 <View
                     style={{
                         marginTop: 10,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        flexWrap: 'wrap',
                     }}
                 >
-                    <CowNumberWidget navigation={navigation} />
+                    <CowNumberWidget
+                        onPress={() => navigation.push('ListCow')}
+                    />
+                    <CowHealthWidget />
+                    <CowHealthWidget />
                     <CowHealthWidget />
                 </View>
             </View>

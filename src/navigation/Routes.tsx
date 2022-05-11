@@ -7,7 +7,6 @@ interface RoutesProps {}
 const Routes: React.FC<RoutesProps> = () => {
     return (
         <NavigationContainer>
-            {/* <MainStack /> */}
             <DrawerTabs />
         </NavigationContainer>
     );

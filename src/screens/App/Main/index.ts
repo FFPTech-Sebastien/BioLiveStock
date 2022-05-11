@@ -1,2 +1,3 @@
 export * from './Home';
-export * from './SearchCow/SearchCow';
+export * from './SearchCow';
+export * from './ListCow';

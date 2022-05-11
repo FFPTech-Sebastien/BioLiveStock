@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import globalConfig from 'src/config/global.config';
+
+const { BASE_URL } = globalConfig;
 
 export type Cow = {
-    image: string[];
+    images: string[];
     id: string;
     rfid: string;
     age: number;
@@ -22,8 +25,8 @@ const initialState: CowState = {
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const fetchCows = createAsyncThunk('cows/fetchCows', async () => {
-    await wait(2000);
-    const response = await fetch('http://10.104.102.16:4000/');
+    // await wait(2000);
+    const response = await fetch(BASE_URL);
     const data = await response.json();
     return data;
 });

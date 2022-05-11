@@ -1,9 +1,14 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Cow } from '@state';
 
 export type MainParamsList = {
     Home: undefined;
     SearchCow: undefined;
+    ListCow: undefined;
+    DetailCow: {
+        cow: Cow;
+    };
 };
 
 export type HomeStackNavProps<T extends keyof MainParamsList> = {
