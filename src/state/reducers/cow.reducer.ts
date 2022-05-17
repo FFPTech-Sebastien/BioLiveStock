@@ -5,8 +5,8 @@ const { BASE_URL } = globalConfig;
 
 export type Cow = {
     images: string[];
-    id: string;
-    rfid: string;
+    id: number;
+    rfid: number;
     age: number;
     weight: number;
     status: 'healthy' | 'sick' | 'dead';
@@ -28,7 +28,7 @@ export const fetchCows = createAsyncThunk('cows/fetchCows', async () => {
     // await wait(2000);
     const response = await fetch(BASE_URL);
     const data = await response.json();
-    return data;
+    return [...data, ...data];
 });
 
 const cowSlice = createSlice({

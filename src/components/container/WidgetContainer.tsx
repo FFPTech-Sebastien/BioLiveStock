@@ -1,5 +1,5 @@
 import { theme } from '@constants';
-import React, { Children, cloneElement, isValidElement, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 export interface WidgetContainerProps {
@@ -40,14 +40,7 @@ const WidgetContainer: React.FC<WidgetContainerProps> = ({
             onPress={onPress}
             activeOpacity={onPress ? 0.5 : 1}
         >
-            {Children.map(children, (child) => {
-                if (isValidElement(child)) {
-                    return cloneElement(child, {
-                        test: 'azer',
-                    });
-                }
-                return child;
-            })}
+            {children}
         </TouchableOpacity>
     );
 };

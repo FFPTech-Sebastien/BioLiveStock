@@ -4,6 +4,8 @@ import { Cow } from '@state';
 
 export type MainParamsList = {
     Home: undefined;
+    HealthCow: undefined;
+    AgeCow: undefined;
     SearchCow: undefined;
     ListCow: undefined;
     DetailCow: {

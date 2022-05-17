@@ -1,10 +1,18 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MainParamsList } from './MainParamsList';
-import { DetailCow, Home, ListCow, SearchCow } from '../../../screens';
+import {
+    AgeCow,
+    DetailCow,
+    HealthCow,
+    Home,
+    ListCow,
+    SearchCow,
+} from '@screens';
 import { TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { theme } from '@constants';
 
 interface MainStackProps {}
 
@@ -57,6 +65,38 @@ const MainStack: React.FC<MainStackProps> = () => {
             }}
         >
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Group
+                screenOptions={({ navigation, route }) => {
+                    return {
+                        presentation: 'modal',
+                        cardStyle: {
+                            backgroundColor: 'white',
+                        },
+                        headerShown: true,
+                        headerTitle: '',
+                        headerShadowVisible: false,
+                        headerLeftLabelVisible: false,
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                style={{
+                                    marginLeft: 20,
+                                }}
+                                onPress={() => navigation.goBack()}
+                            >
+                                <Ionicons
+                                    name="arrow-back"
+                                    size={24}
+                                    color={theme.colors.primary}
+                                />
+                            </TouchableOpacity>
+                        ),
+                        headerRight: () => null,
+                    };
+                }}
+            >
+                <Stack.Screen name="HealthCow" component={HealthCow} />
+                <Stack.Screen name="AgeCow" component={AgeCow} />
+            </Stack.Group>
             <Stack.Group screenOptions={{}}>
                 <Stack.Screen name="SearchCow" component={SearchCow} />
                 <Stack.Screen name="ListCow" component={ListCow} />

@@ -1,18 +1,15 @@
 import { RootState } from '@state';
 import React from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { useSelector } from 'react-redux';
 import WidgetContainer, {
     WidgetContainerProps,
 } from '../container/WidgetContainer';
 
-interface BaseCowWidgetProps extends WidgetContainerProps {
-    test?: string;
-}
+interface BaseCowWidgetProps extends WidgetContainerProps {}
 
 const BaseCowWidget: React.FC<BaseCowWidgetProps> = ({
     width = '48%',
-    test,
     children,
     ...props
 }) => {
@@ -21,7 +18,6 @@ const BaseCowWidget: React.FC<BaseCowWidgetProps> = ({
     if (status === 'idle' || status === 'loading') {
         content = <ActivityIndicator size="small" />;
     }
-    console.log({ ...props });
 
     return (
         <WidgetContainer width={width} {...props}>

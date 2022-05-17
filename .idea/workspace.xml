@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f9f94277-b704-4d30-8773-cda08fb1e616" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/container/WidgetContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/container/WidgetContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/timer/Timer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/timer/Timer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/widget/BaseCowWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/widget/BaseCowWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/widget/CowHealthWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/widget/CowHealthWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/widget/CowNumberWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/widget/CowNumberWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/widget/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/widget/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/App/Main/MainParamsList.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/App/Main/MainParamsList.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/navigation/App/Main/MainStack.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/navigation/App/Main/MainStack.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/App/Main/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/App/Main/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/App/Main/Home/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/App/Main/Home/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/App/Main/ListCow/ListCow.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/App/Main/ListCow/ListCow.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/reducers/cow.reducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/reducers/cow.reducer.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="296Gb8ecEFQEaKyDMJfLLGDq1I9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9f94277-b704-4d30-8773-cda08fb1e616" name="Changes" comment="" />
+      <created>1652426190950</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652426190950</updated>
+      <workItem from="1652426190950" duration="9000" />
+    </task>
+    <servers />
+  </component>
+</project>

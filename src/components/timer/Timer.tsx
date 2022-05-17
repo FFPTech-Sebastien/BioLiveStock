@@ -32,7 +32,7 @@ const Timer: React.FC<TimerProps> = () => {
             <Text
                 style={{
                     fontWeight: 'bold',
-                    fontSize: 15,
+                    fontSize: 20,
                 }}
             >
                 {time}

@@ -1,9 +1,7 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { MainParamsList } from '@navigation';
 import { RootState } from '@state';
 import { theme } from '@constants';
 import BaseCowWidget from '../widget/BaseCowWidget';
@@ -16,16 +14,14 @@ const CowNumberWidget: React.FC<CowNumberWidgetProps> = ({ onPress }) => {
 
     return (
         <BaseCowWidget onPress={() => onPress?.()} center>
-            <>
-                <Text style={{ fontSize: 25, color: theme.colors.primary }}>
-                    {cows.length} cows
-                </Text>
-                <MaterialCommunityIcons
-                    name="cow"
-                    size={80}
-                    color={theme.colors.primary}
-                />
-            </>
+            <Text style={{ fontSize: 25, color: theme.colors.primary }}>
+                {cows.length} cows
+            </Text>
+            <MaterialCommunityIcons
+                name="cow"
+                size={80}
+                color={theme.colors.primary}
+            />
         </BaseCowWidget>
     );
 };
