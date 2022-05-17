@@ -22,20 +22,18 @@ const initialState: CowState = {
     status: 'idle',
 };
 
-const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export const fetchCows = createAsyncThunk('cows/fetchCows', async () => {
     // await wait(2000);
-    const response = await fetch(BASE_URL);
+    const response = await fetch('http://192.168.0.134:4000');
     const data = await response.json();
-    return [...data, ...data];
+    return [...data];
 });
 
 const cowSlice = createSlice({
     name: 'cows',
     initialState,
     reducers: {
-        addCow: (state, action: PayloadAction<Cow>) => {
+        addCow: (state: CowState, action: PayloadAction<Cow>) => {
             state.cows.push(action.payload);
         },
     },

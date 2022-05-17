@@ -6,7 +6,6 @@ const store = configureStore({
     reducer: {
         cow: cowReducer,
         user: userReducer,
-        // test: testReducer,
     },
 });
 

@@ -4,26 +4,30 @@ import {
     FlatList,
     ListRenderItem,
     ScrollView,
+    Text,
+    TextInput,
     View,
 } from 'react-native';
-import DataTableHeader, { Header } from './DataTableHeader';
+import DataTableHeader, {
+    DataTableHeaderCommonProps,
+    SortType,
+} from './DataTableHeader';
 
 const { width: WIDTH } = Dimensions.get('screen');
 
-export enum SortType {
-    UNSORTED = 'unsorted',
-    ASCENDING = 'sort-asc',
-    DESCENDING = 'sort-desc',
-}
-
-export interface DataTableHeaderCommonProps<T> {
-    headers: Header[];
-    itemWidth?: number;
-}
-
-interface DataTableProps<T> extends DataTableHeaderCommonProps<T> {
+interface DataTableProps<T> extends DataTableHeaderCommonProps {
+    /**
+     * Data that will be displayed in the table.
+     */
     data: T[];
+    /**
+     * Function that will be called to render each item in the table.
+     */
     renderItem: ListRenderItem<T> | null | undefined;
+    /**
+     * Searchable fields.
+     */
+    searchFields?: (keyof T)[];
 }
 
 const DataTable = <T,>({
@@ -31,6 +35,7 @@ const DataTable = <T,>({
     renderItem,
     headers,
     itemWidth = WIDTH * 0.15,
+    searchFields,
 }: DataTableProps<T>) => {
     const firstRef = useRef<ScrollView>(null);
     const secondRef = useRef<ScrollView>(null);
@@ -68,6 +73,7 @@ const DataTable = <T,>({
             if (sortType === SortType.UNSORTED) {
                 setFilteredData(data);
             } else {
+                // sort data depending on the sort type
                 const sortedCows = [...data].sort((a, b) => {
                     if (a[sortProperty] < b[sortProperty]) {
                         return sortType === SortType.ASCENDING ? 1 : -1;
@@ -82,8 +88,42 @@ const DataTable = <T,>({
         }
     }, [data, setFilteredData, sortProperty, sortType]);
 
+    const handleSearch = (text: string) => {
+        if (searchFields) {
+            // filter data depending on the input text
+            const filteredCows = data.filter((item) => {
+                return searchFields.some((field) => {
+                    return (item[field] as string).includes(text.toLowerCase());
+                });
+            });
+            setFilteredData(filteredCows);
+        }
+    };
+
     return (
         <View>
+            <View
+                style={{
+                    marginBottom: 10,
+
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <Text>Cattle</Text>
+                <TextInput
+                    placeholder="Search"
+                    style={{
+                        padding: 5,
+                        width: '60%',
+                        borderBottomColor: 'grey',
+                        borderBottomWidth: 1,
+                    }}
+                    onChangeText={handleSearch}
+                />
+            </View>
             <ScrollView
                 ref={firstRef}
                 scrollEventThrottle={16}
@@ -91,6 +131,7 @@ const DataTable = <T,>({
                 bounces={false}
                 onScroll={(e) => {
                     if (secondRef) {
+                        // syncing scroll position
                         secondRef.current?.scrollTo({
                             x: e.nativeEvent.contentOffset.x,
                             animated: false,
@@ -129,6 +170,7 @@ const DataTable = <T,>({
                 ref={secondRef}
                 onScroll={(e) => {
                     if (firstRef) {
+                        // syncing scroll position
                         firstRef.current?.scrollTo({
                             x: e.nativeEvent.contentOffset.x,
                             animated: false,

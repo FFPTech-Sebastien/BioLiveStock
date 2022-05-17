@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "fitforpurpose",
     "name": "BioLiveStock",
     "slug": "BioLiveStock",
     "version": "1.0.0",

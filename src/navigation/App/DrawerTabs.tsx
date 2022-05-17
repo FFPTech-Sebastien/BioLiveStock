@@ -8,6 +8,7 @@ import { theme } from '../../constants';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import DrawerContent from './DrawerContent';
 
 const { StatusBarManager } = NativeModules;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
@@ -18,14 +19,15 @@ interface DrawerTabsProps {}
 const Drawer = createDrawerNavigator<DrawerParamsList>();
 
 const sideMenuDisabledScreens = ['ListCow', 'SearchCow', 'DetailCow'];
+const hideHeaderScreens = ['SearchCow', 'EnrollCow'];
 
 const DrawerTabs: React.FC<DrawerTabsProps> = () => {
     return (
         <Drawer.Navigator
             defaultStatus="closed"
-            // drawerContent={(props) => {
-            //     return <DrawerContent {...props} />;
-            // }}
+            drawerContent={(props) => {
+                return <DrawerContent {...props} />;
+            }}
             screenOptions={({ navigation, route }) => {
                 return {
                     // headerShown: false,
@@ -54,7 +56,9 @@ const DrawerTabs: React.FC<DrawerTabsProps> = () => {
                                     color="white"
                                 />
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('EnrollCow')}
+                            >
                                 <Ionicons
                                     name="ios-add-sharp"
                                     size={30}
@@ -70,6 +74,12 @@ const DrawerTabs: React.FC<DrawerTabsProps> = () => {
                 screenOptions={({ navigation, route }) => {
                     const routeName =
                         getFocusedRouteNameFromRoute(route) ?? 'Home';
+                    if (hideHeaderScreens.includes(routeName)) {
+                        return {
+                            headerShown: false,
+                            swipeEnabled: false,
+                        };
+                    }
                     if (sideMenuDisabledScreens.includes(routeName)) {
                         return {
                             swipeEnabled: false,

@@ -4,10 +4,12 @@ import { MainParamsList } from './MainParamsList';
 import {
     AgeCow,
     DetailCow,
+    EnrollCow,
     HealthCow,
     Home,
     ListCow,
     SearchCow,
+    SpeciesCow,
 } from '@screens';
 import { TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
@@ -76,32 +78,32 @@ const MainStack: React.FC<MainStackProps> = () => {
                         headerTitle: '',
                         headerShadowVisible: false,
                         headerLeftLabelVisible: false,
-                        headerLeft: () => (
+                        headerLeft: () => null,
+                        headerRight: () => (
                             <TouchableOpacity
                                 style={{
-                                    marginLeft: 20,
+                                    marginRight: 20,
                                 }}
                                 onPress={() => navigation.goBack()}
                             >
-                                <Ionicons
-                                    name="arrow-back"
+                                <AntDesign
+                                    name="close"
                                     size={24}
                                     color={theme.colors.primary}
                                 />
                             </TouchableOpacity>
                         ),
-                        headerRight: () => null,
                     };
                 }}
             >
                 <Stack.Screen name="HealthCow" component={HealthCow} />
                 <Stack.Screen name="AgeCow" component={AgeCow} />
+                <Stack.Screen name="SpeciesCow" component={SpeciesCow} />
             </Stack.Group>
-            <Stack.Group screenOptions={{}}>
-                <Stack.Screen name="SearchCow" component={SearchCow} />
-                <Stack.Screen name="ListCow" component={ListCow} />
-                <Stack.Screen name="DetailCow" component={DetailCow} />
-            </Stack.Group>
+            <Stack.Screen name="SearchCow" component={SearchCow} />
+            <Stack.Screen name="EnrollCow" component={EnrollCow} />
+            <Stack.Screen name="ListCow" component={ListCow} />
+            <Stack.Screen name="DetailCow" component={DetailCow} />
         </Stack.Navigator>
     );
 };

@@ -14,7 +14,7 @@ import { globalConfig } from '@config';
 
 type DetailCowProps = HomeStackNavProps<'DetailCow'>;
 
-const { BASE_URL } = globalConfig;
+const { BASE_URL, LOCAL_URL } = globalConfig;
 const { width: WIDTH, height: HEIGHT } = Dimensions.get('window');
 
 const IMAGE_NUMBER = 3;
@@ -67,7 +67,7 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
             <View style={{ flex: 1 }}>
                 <ZoomableImage
                     source={{
-                        uri: `${BASE_URL}/${selectedImage}`,
+                        uri: `${LOCAL_URL}/${selectedImage}`,
                     }}
                     height={IMAGE_PREVIEW}
                 />
@@ -94,7 +94,7 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
                                 }}
                             >
                                 <Image
-                                    source={{ uri: `${BASE_URL}/${item}` }}
+                                    source={{ uri: `${LOCAL_URL}/${item}` }}
                                     style={{
                                         width: IMAGE_WIDTH,
                                         aspectRatio: 1,

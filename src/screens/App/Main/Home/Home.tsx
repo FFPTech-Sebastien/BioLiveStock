@@ -3,21 +3,41 @@ import {
     CowAgeWidget,
     CowHealthWidget,
     CowNumberWidget,
-    Timer,
-    WidgetContainer,
+    CowSpeciesWidget,
 } from '@components';
-import { fetchCows, useAppDispatch } from '@state';
+import { Cow, fetchCows, RootState, useAppDispatch } from '@state';
 import { HomeStackNavProps } from '@navigation';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import TimerWidget from 'src/components/widget/TimerWidget';
+import { Simulator } from 'src/services/simulator';
+import { useSelector } from 'react-redux';
 
 type HomeProps = HomeStackNavProps<'Home'>;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
+    const { cows } = useSelector((state: RootState) => state.cow);
+
+    const handleCow = (cow: Cow) => {};
+
+    useEffect(() => {
+        const simulator = new Simulator(cows, {
+            loop: true,
+        });
+        simulator
+            .addData(
+                {
+                    images: [],
+                    age: 5,
+                    rfid: 5,
+                    status: 'healthy',
+                    weight: 150,
+                },
+                handleCow
+            )
+            .start();
+    }, [cows]);
 
     useEffect(() => {
         dispatch(fetchCows());
@@ -31,86 +51,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             }}
         >
             <View style={{ flex: 1 }}>
-                <WidgetContainer>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Timer />
-                        <View
-                            style={{
-                                marginTop: 10,
-                                justifyContent: 'space-between',
-                                flexDirection: 'row',
-                                width: '100%',
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <MaterialCommunityIcons
-                                    name="temperature-celsius"
-                                    size={20}
-                                    color="black"
-                                />
-                                <Text
-                                    style={{
-                                        transform: [{ translateY: 1 }],
-                                    }}
-                                >
-                                    23
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <Ionicons
-                                    name="rainy-outline"
-                                    size={20}
-                                    color="black"
-                                />
-                                <Text
-                                    style={{
-                                        marginLeft: 5,
-                                    }}
-                                >
-                                    Mild
-                                </Text>
-                            </View>
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Feather name="wind" size={20} color="black" />
-                                <Text
-                                    style={{
-                                        marginLeft: 5,
-                                    }}
-                                >
-                                    12 mph
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}
-                    ></View>
-                </WidgetContainer>
+                <TimerWidget />
                 <View
                     style={{
                         marginTop: 10,
@@ -126,7 +67,9 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
                         onPress={() => navigation.push('HealthCow')}
                     />
                     <CowAgeWidget onPress={() => navigation.push('AgeCow')} />
-                    <CowHealthWidget />
+                    <CowSpeciesWidget
+                        onPress={() => navigation.push('SpeciesCow')}
+                    />
                 </View>
             </View>
         </ScrollView>

@@ -3,9 +3,21 @@ import React, { useMemo } from 'react';
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 export interface WidgetContainerProps {
+    /**
+     * Width of the widget.
+     */
     width?: string;
+    /**
+     * Action triggered when the widget is pressed.
+     */
     onPress?: () => void;
+    /**
+     * Provide styling for the container.
+     */
     style?: StyleProp<ViewStyle>;
+    /**
+     * If yes, the content will be centered.
+     */
     center?: boolean;
 }
 

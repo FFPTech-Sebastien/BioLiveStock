@@ -1,6 +1,5 @@
 import React, { isValidElement } from 'react';
-import { StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
-import DataTableItem from './DataTableItem';
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native';
 
 interface DatatTableRowProps {
     onPress: () => void;
@@ -25,6 +24,7 @@ const DatatTableRow: React.FC<DatatTableRowProps> = React.memo(
             >
                 {React.Children.map(children, (child) => {
                     if (isValidElement(child)) {
+                        // pass the itemWidth property to each child
                         return React.cloneElement(child, { itemWidth });
                     }
                     return child;

@@ -45,11 +45,9 @@ const HealthCow: React.FC<HealthCowProps> = () => {
                 height={HEIGHT * 0.8}
                 width={WIDTH}
                 withCustomBarColorFromData={true}
-                segments={6}
                 flatColor={true}
+                showValuesOnTopOfBars
                 chartConfig={{
-                    decimalPlaces: 0,
-                    barPercentage: 1,
                     backgroundGradientFromOpacity: 0,
                     backgroundGradientFrom: '#fff',
                     backgroundGradientTo: '#fff',

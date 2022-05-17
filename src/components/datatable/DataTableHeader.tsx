@@ -1,18 +1,52 @@
 import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { DataTableHeaderCommonProps, SortType } from './DataTable';
 import { FontAwesome } from '@expo/vector-icons';
 
+export enum SortType {
+    UNSORTED = 'unsorted',
+    ASCENDING = 'sort-asc',
+    DESCENDING = 'sort-desc',
+}
+
+export interface DataTableHeaderCommonProps {
+    /**
+     * Headers of the table
+     */
+    headers: Header[];
+    /**
+     * Width of each item in a row.
+     */
+    itemWidth?: number;
+}
+
 export type Header = {
+    /**
+     * Label of the header.
+     */
     label: string;
+    /**
+     * If yes, the column can be sorted.
+     */
     sortable?: boolean;
+    /**
+     * Property of the object that will be used to sort the data.
+     */
     property?: string;
 };
 
-interface DataTableHeaderProps<T> extends DataTableHeaderCommonProps<T> {
+interface DataTableHeaderProps<T> extends DataTableHeaderCommonProps {
+    /**
+     * Method called when the header will be pressed.
+     */
     onHeaderPress: (property: keyof T) => void;
+    /**
+     * Property to sort.
+     */
     sortProperty: keyof T | undefined;
+    /**
+     * Property type: ASC, DESC or UNSORTED.
+     */
     sortType: SortType;
 }
 

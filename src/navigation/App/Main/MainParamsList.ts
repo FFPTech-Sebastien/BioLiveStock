@@ -6,7 +6,9 @@ export type MainParamsList = {
     Home: undefined;
     HealthCow: undefined;
     AgeCow: undefined;
+    SpeciesCow: undefined;
     SearchCow: undefined;
+    EnrollCow: undefined;
     ListCow: undefined;
     DetailCow: {
         cow: Cow;
