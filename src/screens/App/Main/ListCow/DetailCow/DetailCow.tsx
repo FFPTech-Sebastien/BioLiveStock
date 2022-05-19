@@ -4,6 +4,7 @@ import {
     Dimensions,
     FlatList,
     Image,
+    ImageURISource,
     ScrollView,
     StyleSheet,
     TouchableOpacity,
@@ -11,6 +12,7 @@ import {
 } from 'react-native';
 import { ZoomableImage } from '@components';
 import { globalConfig } from '@config';
+import { BarChart } from 'react-native-chart-kit';
 
 type DetailCowProps = HomeStackNavProps<'DetailCow'>;
 
@@ -26,7 +28,9 @@ const IMAGE_PREVIEW = HEIGHT * 0.4;
 
 const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
     const { cow } = route.params;
-    const [selectedImage, setSelectedImage] = useState<string>(cow.images[0]);
+    const [selectedImage, setSelectedImage] = useState<ImageURISource>(
+        cow.images[0]
+    );
     const [currentIndex, setCurrentIndex] = useState<{
         currentIndex: number;
         previousIndex: number;
@@ -36,7 +40,7 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
     });
     const ref = useRef<FlatList<string>>(null);
 
-    const setCurrentCow = (item: string, index: number) => {
+    const setCurrentCow = (item: ImageURISource, index: number) => {
         setSelectedImage(item);
         setCurrentIndex((prev) => ({
             previousIndex: prev.currentIndex,
@@ -65,11 +69,20 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
             nestedScrollEnabled={true}
         >
             <View style={{ flex: 1 }}>
-                <ZoomableImage
+                {/* <ZoomableImage
                     source={{
                         uri: `${LOCAL_URL}/${selectedImage}`,
                     }}
                     height={IMAGE_PREVIEW}
+                /> */}
+                {/* <ZoomableImage source={selectedImage} height={IMAGE_PREVIEW} /> */}
+                <Image
+                    source={selectedImage}
+                    style={{
+                        height: IMAGE_PREVIEW,
+                        width: WIDTH - 40,
+                        resizeMode: 'cover',
+                    }}
                 />
                 <FlatList
                     ref={ref}
@@ -90,14 +103,25 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
                             <TouchableOpacity
                                 key={index}
                                 onPress={() => {
-                                    setCurrentCow(item, index);
+                                    setCurrentCow(
+                                        item as ImageURISource,
+                                        index
+                                    );
                                 }}
                             >
-                                <Image
+                                {/* <Image
                                     source={{ uri: `${LOCAL_URL}/${item}` }}
                                     style={{
                                         width: IMAGE_WIDTH,
                                         aspectRatio: 1,
+                                        resizeMode: 'cover',
+                                    }}
+                                /> */}
+                                <Image
+                                    source={item as ImageURISource}
+                                    style={{
+                                        width: IMAGE_WIDTH,
+                                        height: IMAGE_WIDTH,
                                         resizeMode: 'cover',
                                     }}
                                 />
@@ -114,6 +138,40 @@ const DetailCow: React.FC<DetailCowProps> = ({ route }) => {
                         );
                     }}
                     keyExtractor={(_, index) => index.toString()}
+                />
+            </View>
+            <View style={{ marginTop: 20 }}>
+                <BarChart
+                    data={{
+                        labels: ['Standing', 'Walking', 'Lying', 'Eating'],
+                        datasets: [
+                            {
+                                data: [8.5, 6.5, 5.5, 3.5],
+                                colors: [
+                                    (opacity = 1) => '#505e61',
+                                    (opacity = 1) => '#e6b55a',
+                                    (opacity = 1) => '#deb670',
+                                    (opacity = 1) => '#a6632e',
+                                ],
+                            },
+                        ],
+                    }}
+                    showBarTops={false}
+                    fromZero
+                    height={HEIGHT * 0.5}
+                    width={WIDTH * 0.9}
+                    withCustomBarColorFromData={true}
+                    flatColor={true}
+                    showValuesOnTopOfBars
+                    chartConfig={{
+                        decimalPlaces: 1,
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientFrom: '#fff',
+                        backgroundGradientTo: '#fff',
+                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        labelColor: (opacity = 1) =>
+                            `rgba(0, 0, 0, ${opacity})`,
+                    }}
                 />
             </View>
         </ScrollView>

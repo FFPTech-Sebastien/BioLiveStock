@@ -39,10 +39,10 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
     const { error, status } = useSelector((state: RootState) => state.user);
     const [state, setState] = useState({
-        email: 'sebastien.vanvreckem@fitforpurpose.tech',
-        password: 'fitforpurpose',
-        // email: '',
-        // password: '',
+        // email: 'sebastien.vanvreckem@fitforpurpose.tech',
+        // password: 'fitforpurpose',
+        email: '',
+        password: '',
     });
     const { promptAsync } = useMS();
     const [active, setActive] = useState(false);
@@ -115,6 +115,7 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
             contentContainerStyle={{ flex: 1 }}
             bounces={false}
             keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
         >
             <View style={{ flex: 1, backgroundColor: 'black' }}>
                 <View

@@ -1,32 +1,38 @@
 type QueueStep = () => Promise<void>;
 
 type ItemWithoutId<T> = Omit<T, 'id'>;
-type Item = {
-    id: string | number;
-};
 
-export default class Simulator<T extends Item> {
+export default class Simulator<T> {
     #data: T[];
     #queue: QueueStep[] = [];
     #loop: boolean;
     #delay: number;
+    #dataGenerator: () => ItemWithoutId<T>;
 
-    constructor(data: T[], { loop = false, delay = 1000 }) {
+    constructor(
+        data: T[],
+        { loop = false, delay = 10000 },
+        dataGenerator: () => ItemWithoutId<T>
+    ) {
         this.#data = [...data];
         this.#loop = loop;
         this.#delay = delay;
+        this.#dataGenerator = dataGenerator;
     }
 
     #addToQueue = (cb: (resolve: () => void) => void) => {
         this.#queue.push(() => new Promise(cb));
     };
 
-    addData = (data: ItemWithoutId<T>, cb?: (data: T) => void) => {
+    addData = (cb: (data: T) => void) => {
         this.#addToQueue((resolve) => {
             setTimeout(() => {
-                const item = { ...data, id: this.#data.length + 1 };
-                this.#data.push(item as T);
-                cb?.(item);
+                const item = {
+                    ...this.#dataGenerator(),
+                    id: this.#data.length + 1,
+                } as T;
+                this.#data.push(item);
+                cb(item);
                 resolve();
             }, this.#delay);
         });
@@ -37,7 +43,9 @@ export default class Simulator<T extends Item> {
         let cb = this.#queue.shift();
         while (cb != null) {
             await cb();
-            if (this.#loop) this.#queue.push(cb);
+            if (this.#loop) {
+                this.#queue.push(cb);
+            }
             cb = this.#queue.shift();
         }
     };

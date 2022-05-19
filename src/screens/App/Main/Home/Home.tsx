@@ -1,47 +1,89 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     CowAgeWidget,
     CowHealthWidget,
     CowNumberWidget,
     CowSpeciesWidget,
 } from '@components';
-import { Cow, fetchCows, RootState, useAppDispatch } from '@state';
+import {
+    addCow,
+    Cow,
+    CowSpecies,
+    CowStatus,
+    fetchCows,
+    RootState,
+    useAppDispatch,
+} from '@state';
 import { HomeStackNavProps } from '@navigation';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import TimerWidget from 'src/components/widget/TimerWidget';
 import { Simulator } from 'src/services/simulator';
 import { useSelector } from 'react-redux';
+import { useSocket } from '@contexts';
 
 type HomeProps = HomeStackNavProps<'Home'>;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
     const dispatch = useAppDispatch();
+    const { user } = useSelector((state: RootState) => state.user);
     const { cows } = useSelector((state: RootState) => state.cow);
-
-    const handleCow = (cow: Cow) => {};
+    const { socket } = useSocket();
+    const [data, setData] = useState<Cow[]>([]);
 
     useEffect(() => {
-        const simulator = new Simulator(cows, {
-            loop: true,
+        socket?.emit('JOIN_COW_ROOM', user.id);
+        socket?.on('SEND_COWS', () => {
+            socket?.emit('SYNC_COWS', cows);
         });
-        simulator
-            .addData(
-                {
-                    images: [],
-                    age: 5,
-                    rfid: 5,
-                    status: 'healthy',
-                    weight: 150,
-                },
-                handleCow
-            )
-            .start();
-    }, [cows]);
+
+        return () => {
+            socket?.off('SEND_COWS');
+        };
+    }, [cows, socket, user]);
 
     useEffect(() => {
-        dispatch(fetchCows());
-    }, [dispatch]);
+        if (data.length === 0) {
+            socket?.emit('SYNC_COWS', cows);
+            setData(cows);
+        }
+    }, [socket, cows, data.length]);
+
+    const handleCow = useCallback(
+        (cow: Cow) => {
+            console.log(cow);
+            socket?.emit('ADD_COW', cow);
+            dispatch(addCow(cow));
+        },
+        [dispatch, socket]
+    );
+
+    useEffect(() => {
+        if (data.length === cows.length) {
+            const simulator = new Simulator(
+                cows,
+                {
+                    loop: true,
+                },
+                () => ({
+                    age: Math.floor(Math.random() * 10),
+                    status: ['healthy', 'sick', 'dead'][
+                        Math.floor(Math.random() * 3)
+                    ] as CowStatus,
+                    species: 'Black Angus' as CowSpecies,
+                    weight: Math.floor(Math.random() * 100),
+                    rfid: Math.floor(Math.random() * 100),
+                    stats: [8.5, 6.5, 4.5, 4.5],
+                    images: [],
+                })
+            );
+            simulator.addData(handleCow).start();
+        }
+    }, [cows, data, handleCow]);
+
+    // useEffect(() => {
+    //     dispatch(fetchCows());
+    // }, [dispatch]);
 
     return (
         <ScrollView

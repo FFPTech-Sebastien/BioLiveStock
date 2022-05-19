@@ -10,13 +10,13 @@ const Splash: React.FC<SplashProps> = () => {
     return (
         <View
             style={{
-                backgroundColor: theme.colors.primary,
+                backgroundColor: theme.colors.background,
                 flex: 1,
             }}
         >
             <Center>
                 <Image
-                    source={require('../../../assets/biolivestock-white.png')}
+                    source={require('../../../assets/biolivestock-main-logo.png')}
                     style={{
                         width: 300,
                         height: 300,
@@ -24,17 +24,15 @@ const Splash: React.FC<SplashProps> = () => {
                 />
                 <Text
                     style={{
-                        fontSize: 35,
+                        fontSize: 22,
                         fontWeight: 'bold',
-                        color: 'white',
                         marginBottom: 10,
                         transform: [{ translateY: -10 }],
                     }}
                 >
                     Powered by
                 </Text>
-                <HalisiImage height={80} width={80} />
-                {/* <ActivityIndicator size="large" animating={true} color="grey" /> */}
+                <HalisiImage height={60} width={60} />
             </Center>
         </View>
     );

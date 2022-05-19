@@ -47,7 +47,9 @@ const SpeciesCow: React.FC<SpeciesCowProps> = () => {
                             color: '#deb670',
                         },
                         {
-                            number: 5,
+                            number: cows.filter(
+                                (cow) => cow.species === 'Black Angus'
+                            ).length,
                             color: '#a6632e',
                         },
                     ]}

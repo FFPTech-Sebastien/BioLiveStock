@@ -84,13 +84,21 @@ const ListCow: React.FC<ListCowProps> = ({ navigation }) => {
                         >
                             <DataTableItem
                                 renderItem={() => (
+                                    // <Image
+                                    //     source={{
+                                    //         uri: `${LOCAL_URL}/${item.images[0]}`,
+                                    //     }}
+                                    //     style={{
+                                    //         width: 40,
+                                    //         aspectRatio: 1,
+                                    //         resizeMode: 'cover',
+                                    //     }}
+                                    // />
                                     <Image
-                                        source={{
-                                            uri: `${LOCAL_URL}/${item.images[0]}`,
-                                        }}
+                                        source={item.images[0]}
                                         style={{
                                             width: 40,
-                                            aspectRatio: 1,
+                                            height: 40,
                                             resizeMode: 'cover',
                                         }}
                                     />

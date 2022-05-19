@@ -29,7 +29,7 @@ const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     const [socket, setSocket] = useState<ISocketProvider>({ socket: null });
 
     useEffect(() => {
-        const socket = io(SOCKET_URL);
+        const socket = io('http://192.168.25.157:4000');
 
         setSocket({ socket });
         return () => {

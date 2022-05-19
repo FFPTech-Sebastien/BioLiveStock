@@ -5,6 +5,7 @@ import { Timer } from '../timer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 interface TimerWidgetProps {}
 
@@ -31,9 +32,9 @@ const TimerWidget: React.FC<TimerWidgetProps> = () => {
                             alignItems: 'center',
                         }}
                     >
-                        <MaterialCommunityIcons
-                            name="temperature-celsius"
-                            size={20}
+                        <FontAwesome5
+                            name="temperature-high"
+                            size={18}
                             color="black"
                         />
                         <Text

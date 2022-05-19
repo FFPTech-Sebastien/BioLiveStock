@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { AuthenticationStack } from './Authentication';
 import { getItem } from 'src/services';
 import { Splash } from '@components';
+import SocketProvider from 'src/contexts/SocketContext';
 
 interface RoutesProps {}
 
@@ -22,7 +23,7 @@ const Routes: React.FC<RoutesProps> = () => {
                 dispatch(getCurrentUser());
             }
         });
-    }, []);
+    }, [dispatch]);
 
     if (isLoading) {
         return <Splash />;
@@ -30,7 +31,9 @@ const Routes: React.FC<RoutesProps> = () => {
 
     return (
         <NavigationContainer>
-            {isLoggedIn ? <DrawerTabs /> : <AuthenticationStack />}
+            <SocketProvider>
+                {isLoggedIn ? <DrawerTabs /> : <AuthenticationStack />}
+            </SocketProvider>
         </NavigationContainer>
     );
 };

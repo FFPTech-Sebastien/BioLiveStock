@@ -93,7 +93,7 @@ const DataTable = <T,>({
             // filter data depending on the input text
             const filteredCows = data.filter((item) => {
                 return searchFields.some((field) => {
-                    return (item[field] as string).includes(text.toLowerCase());
+                    return (item[field] + '').includes(text.toLowerCase());
                 });
             });
             setFilteredData(filteredCows);
@@ -129,15 +129,6 @@ const DataTable = <T,>({
                 scrollEventThrottle={16}
                 horizontal
                 bounces={false}
-                onScroll={(e) => {
-                    if (secondRef) {
-                        // syncing scroll position
-                        secondRef.current?.scrollTo({
-                            x: e.nativeEvent.contentOffset.x,
-                            animated: false,
-                        });
-                    }
-                }}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{
                     width: itemWidth * 10,
@@ -179,17 +170,27 @@ const DataTable = <T,>({
                 }}
                 scrollEventThrottle={16}
             >
-                <FlatList<T>
-                    data={filteredData}
-                    renderItem={renderItem}
-                    keyExtractor={(_, index) => index.toString()}
-                    contentContainerStyle={{
-                        paddingBottom: 50,
-                    }}
-                    style={{
-                        height: '95%',
-                    }}
-                />
+                {filteredData.length > 0 ? (
+                    <FlatList<T>
+                        data={filteredData}
+                        renderItem={renderItem}
+                        keyExtractor={(_, index) => index.toString()}
+                        contentContainerStyle={{
+                            paddingBottom: 50,
+                        }}
+                        style={{
+                            height: '95%',
+                        }}
+                    />
+                ) : (
+                    <Text
+                        style={{
+                            alignSelf: 'center',
+                        }}
+                    >
+                        No match found
+                    </Text>
+                )}
             </ScrollView>
         </View>
     );

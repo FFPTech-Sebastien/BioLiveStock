@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+    createStackNavigator,
+    TransitionPresets,
+} from '@react-navigation/stack';
 import { MainParamsList } from './MainParamsList';
 import {
     AgeCow,
@@ -100,8 +103,14 @@ const MainStack: React.FC<MainStackProps> = () => {
                 <Stack.Screen name="AgeCow" component={AgeCow} />
                 <Stack.Screen name="SpeciesCow" component={SpeciesCow} />
             </Stack.Group>
-            <Stack.Screen name="SearchCow" component={SearchCow} />
-            <Stack.Screen name="EnrollCow" component={EnrollCow} />
+            <Stack.Group
+                screenOptions={{
+                    ...TransitionPresets.ModalSlideFromBottomIOS,
+                }}
+            >
+                <Stack.Screen name="SearchCow" component={SearchCow} />
+                <Stack.Screen name="EnrollCow" component={EnrollCow} />
+            </Stack.Group>
             <Stack.Screen name="ListCow" component={ListCow} />
             <Stack.Screen name="DetailCow" component={DetailCow} />
         </Stack.Navigator>
